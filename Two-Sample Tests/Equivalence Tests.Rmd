@@ -1,0 +1,396 @@
+---
+output:
+  html_document: 
+    theme: readable
+    highlight: tango
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+# set global doc options:
+# do not include warning messages
+# in the knitted document
+knitr::opts_chunk$set(fig.height = 8, fig.width = 8,warning=F, message=F )
+```
+
+# Lab 02 - Equivalence Tests 
+
+**Rudy Meza**
+
+---------------
+ 
+**Packages**
+
+```{r}
+library( dplyr )
+library( pander )
+library( ggplot2 )
+library(tidyverse)
+
+```
+
+**Data**
+
+```{r}
+# load lab data
+URL <- "https://github.com/DS4PS/cpp-524-sum-2020/blob/master/labs/data/female-np-entrepreneurs.rds?raw=true"
+dat <- readRDS(gzcon(url( URL )))
+head( dat )
+```
+
+
+
+
+# QUESTIONS
+
+
+## Question 1 
+
+Compare education levels of male and female entrepreneurs.
+
+* Variable Name: **edu.level** 
+* Variable Type: **factor**
+* Survey question: *What is the highest level of education you have achieved?*
+
+
+```{r}
+m<-dat%>%
+  select(gender, edu.level)
+table(m)%>%pander() 
+new_m<-table(m)
+
+```
+
+
+```{r}
+apply(table(m), MARGIN=2, FUN=sum )%>%pander()
+
+(apply(table(m), MARGIN=2, FUN=sum )/sum(new_m)) %>% round(2)%>%pander()
+
+new_m%>% prop.table( margin=1 ) %>% round(2)%>%pander()
+```
+
+```{r}
+
+vcd::mosaic( new_m, shade=TRUE, legend=TRUE )
+chisq.test( new_m )
+```
+
+
+### **ANSWER:** 
+
+Explanation: comparing education levels of male and female entrepreneurs shows no differences.
+
+The Chi-Square Test Fails to reject the null hypothesis at **0.3566** that the two factors are indeed independent of each other. 
+
+We can also confirm this visually with the mosaic test plot: We can see Males and Females do match the population closely considering each row is "Grey". Also, the p-value matches the Chi-Square.
+
+
+
+## Question 2 
+
+Compare work experience for male and female entrepreneurs.
+
+* Variable Name: **years.prof.exp** 
+* Variable Type: **factor**
+* Survey question: *How many years of professional experience did you have prior to starting the nonprofit?*
+
+
+```{r}
+
+m<-dat%>%
+  select(gender, years.prof.exp)
+table(m)%>%pander() 
+new_m<-table(m)
+
+```
+
+```{r}
+apply(table(m), MARGIN=2, FUN=sum )%>%pander()
+
+(apply(table(m), MARGIN=2, FUN=sum )/sum(new_m)) %>% round(2)%>%pander()
+
+new_m%>% prop.table( margin=1 ) %>% round(2)%>%pander()
+
+
+```
+
+```{r}
+
+vcd::mosaic( new_m, shade=TRUE, legend=TRUE )
+chisq.test( new_m )
+
+
+```
+
+
+
+### **ANSWER:** 
+
+Explanation: comparing Years of Professional Experience between  Males and Females Shows no relationship exist.
+
+The Chi-Square Test Fails to reject the null hypothesis at **0.5482** that the two factors are indeed independent of each other. 
+
+We can also confirm this visually with the mosaic test plot: We can see Males and Females do match the population closely considering each row is "Grey". Also, the p-value matches the Chi-Square.
+
+
+
+## Question 3 
+
+Compare success in accessing seed funding for male and female entrepreneurs.
+
+* Variable Name: **seed.funding** 
+* Variable Type: **factor** 
+* Survey question: *Did you receive any SEED FUNDING to start the organization? Seed funding supports development of the organization without requiring deliverables or program activities. Seed funding could also include funding for pilot programs.*
+
+```{r}
+m<-dat%>%
+  select(gender, seed.funding)
+table(m)%>%pander() 
+new_m<-table(m)
+
+
+```
+
+
+```{r}
+
+apply(table(m), MARGIN=2, FUN=sum )%>%pander()
+
+(apply(table(m), MARGIN=2, FUN=sum )/sum(new_m)) %>% round(2)%>%pander()
+
+new_m%>% prop.table( margin=1 ) %>% round(2)%>%pander()
+
+
+```
+
+```{r}
+
+vcd::mosaic( new_m, shade=TRUE, legend=TRUE )
+chisq.test( new_m )
+
+
+```
+
+### **ANSWER:** 
+
+Explanation: comparing success in accessing seed funding between  Males and Females Shows no relationship exist.
+
+The Chi-Square Test Fails to reject the null hypothesis at **0.9261** that the two factors are indeed independent of each other. 
+
+We can also confirm this visually with the mosaic test plot: We can see Males and Females do match the population closely considering each row is "Grey". Also, the p-value matches the Chi-Square.
+
+
+
+## Question 4 
+
+Compare the willingness to take on personal debt for male and female entrepreneurs. 
+
+* Variable Name: **take.on.debt** 
+* Variable Type: **factor** 
+* Survey question: *Have any members of the organization taken on debt to finance the organization? Collectively:*
+
+
+```{r}
+
+m<-dat%>%
+  select(gender, take.on.debt)
+table(m)%>%pander() 
+new_m<-table(m)
+
+```
+
+
+```{r}
+
+apply(table(m), MARGIN=2, FUN=sum )%>%pander()
+
+(apply(table(m), MARGIN=2, FUN=sum )/sum(new_m)) %>% round(2)%>%pander()
+
+new_m%>% prop.table( margin=1 ) %>% round(2)%>%pander()
+
+
+```
+
+```{r}
+
+vcd::mosaic( new_m, shade=TRUE, legend=TRUE )
+chisq.test( new_m )
+
+
+```
+
+### **ANSWER:** 
+
+Explanation: willingness to take on personal debt between  Males and Females Shows no relationship exist.
+
+The Chi-Square Test Fails to reject the null hypothesis at **0.07145** that the two factors are indeed independent of each other. However, this is marginally significant for rejecting the null hypothesis. 
+
+We can also confirm this visually with the mosaic test plot: We can see Males and Females do match the population closely considering each row is "Grey". Also, the p-value matches the Chi-Square.
+
+
+## Question 5 
+
+Compare sources of first year funding for male and female entrepreneurs. 
+
+* Variable Name: **most.imp.fund.source** 
+* Variable Type: **factor** 
+* Survey question: *From the list of funding sources, which has been the MOST important in your first year of operations? Choose one.*
+
+```{r}
+
+m<-dat%>%
+  select(gender, most.imp.fund.source)
+table(m)%>%pander() 
+new_m<-table(m)
+
+```
+
+
+```{r}
+
+apply(table(m), MARGIN=2, FUN=sum )%>%pander()
+
+(apply(table(m), MARGIN=2, FUN=sum )/sum(new_m)) %>% round(2)%>%pander()
+
+new_m%>% prop.table( margin=1 ) %>% round(2)%>%pander()
+
+
+```
+
+```{r}
+vcd::mosaic( new_m, shade=TRUE, legend=TRUE )
+chisq.test( new_m )
+
+```
+
+
+### **ANSWER:** 
+
+Explanation: comparing sources of first year funding between Males and Females Shows no relationship exist.
+
+The Chi-Square Test Fails to reject the null hypothesis at **0.3568** that the two factors are indeed independent of each other. 
+
+We can also confirm this visually with the mosaic test plot: We can see Males and Females do match the population closely considering each row is "Grey". Also, the p-value matches the Chi-Square.
+
+
+## Question 6 
+
+Compare age at the time of nonprofit formation for male and female entrepreneurs. 
+
+* Variable Name: **age** 
+* Variable Type: **numeric** 
+* Survey question: *What was your age when you created the nonprofit?*
+
+```{r}
+m<-dat%>%
+  select(gender, age)
+  
+by(m,m$gender,summary)%>%pander()
+
+
+
+```
+
+
+```{r}
+
+ggplot(m,aes(age, fill=gender))+
+  geom_density(alpha=0.3)+
+  xlab("Age")+
+  theme_bw()
+
+
+```
+
+
+```{r}
+
+t.test( age ~ gender, data=m )
+
+```
+
+### **ANSWER:** 
+
+Explanation: The p-value of the t-test less than **0.05**
+
+Therefore, Age at the time the non-profit was formed for males and females is equivalent.
+
+
+## Question 7 
+
+Compare income levels prior to starting the nonprofit for male and female entrepreneurs. 
+
+* Variable Name: **income** 
+* Variable Type: **numeric** 
+* Survey question: *Please specify your income range prior to working to create this nonprofit:*
+
+```{r}
+m<-dat%>%
+  select(gender, income)
+  
+by(m,m$gender,summary)%>%pander()
+
+```
+
+```{r}
+ggplot(m,aes(income, fill=gender))+
+  geom_density(alpha=0.3)+
+  xlab("Income")+
+  theme_bw()
+
+```
+
+```{r}
+
+t.test( income ~ gender, data=m )
+
+
+```
+
+### **ANSWER:** 
+
+Explanation: The p-value of the t-test less than **0.05**
+
+Therefore, income levels prior to starting the nonprofit between males and females is equivalent.
+
+## Question 8
+
+Based upon these seven contrasts, would you conclude that the resources male and female nonprofit entrepreneurs have at the time of founding were equivalent?
+
+No, based on the last seven contrasts, two were found to show equivalence between men and women. Therefore, the differences are more likely to be driven by unmeasured behavioral traits.
+
+**Q8-A:**
+
+What is the adjusted decision criteria used for contrasts to maintain an alpha of 0.05 for the omnibus test of group equivalence? 
+
+### **ANSWER:** 
+
+
+
+```{r}
+
+adjusted_alpha<-0.05/7
+adjusted_alpha
+```
+
+The adjusted decision criteria: **0.007142857**
+
+
+**Q8-B:**
+
+What is the lowest p-value you observed across the seven contrasts? 
+
+### **ANSWER:** 
+
+ p-value = 0.0003003
+
+
+**Q8-C:**
+
+Can we claim study group equivalency? Why or why not? 
+
+### **ANSWER:** 
+
+No, based on the the new adjusted alpha. We still have a failure of two tests. Therefore, we can not claim study group equivalency.
+
