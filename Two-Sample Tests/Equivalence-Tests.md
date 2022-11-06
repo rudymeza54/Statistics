@@ -1,7 +1,8 @@
 ---
 output:
   html_document:
-    keep_md: true 
+    keep_md: true
+    github_document: true 
     theme: readable
     highlight: tango
     toc: yes
@@ -9,7 +10,7 @@ output:
 
 
 
-# Lab 02 - Equivalence Tests 
+# Equivalence Tests 
 
 **Rudy Meza**
 

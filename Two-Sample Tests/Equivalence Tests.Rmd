@@ -1,6 +1,7 @@
 ---
 output:
   html_document:
+    keep_md: true
     github_document: true 
     theme: readable
     highlight: tango
@@ -14,7 +15,7 @@ output:
 knitr::opts_chunk$set(fig.height = 8, fig.width = 8,warning=F, message=F )
 ```
 
-# Lab 02 - Equivalence Tests 
+# Equivalence Tests 
 
 **Rudy Meza**
 
