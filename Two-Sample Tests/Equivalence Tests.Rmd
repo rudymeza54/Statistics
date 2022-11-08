@@ -316,7 +316,7 @@ t.test( age ~ gender, data=m )
 
 Explanation: The p-value of the t-test less than **0.05**
 
-Therefore, Age at the time the non-profit was formed for males and females is equivalent.
+Therefore, Age at the time the non-profit was formed for males and females is different.
 
 
 ## Question 7 
@@ -354,13 +354,13 @@ t.test( income ~ gender, data=m )
 
 Explanation: The p-value of the t-test less than **0.05**
 
-Therefore, income levels prior to starting the nonprofit between males and females is equivalent.
+Therefore, income levels prior to starting the nonprofit between males and females is different.
 
 ## Question 8
 
 Based upon these seven contrasts, would you conclude that the resources male and female nonprofit entrepreneurs have at the time of founding were equivalent?
 
-No, based on the last seven contrasts, two were found to show equivalence between men and women. Therefore, the differences are more likely to be driven by unmeasured behavioral traits.
+No, based on the last seven contrasts, two were found to show differences between men and women. Therefore, the differences are more likely to be driven by unmeasured behavioral traits.
 
 **Q8-A:**
 
