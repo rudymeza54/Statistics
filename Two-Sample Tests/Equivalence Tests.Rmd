@@ -62,7 +62,8 @@ table(m)%>%pander()
 new_m<-table(m)
 
 ```
-
+\
+\
 
 ```{r}
 apply(table(m), MARGIN=2, FUN=sum )%>%pander()
@@ -71,13 +72,15 @@ apply(table(m), MARGIN=2, FUN=sum )%>%pander()
 
 new_m%>% prop.table( margin=1 ) %>% round(2)%>%pander()
 ```
-
+\
+\
 ```{r}
 
 vcd::mosaic( new_m, shade=TRUE, legend=TRUE )
 chisq.test( new_m )
 ```
 
+\
 
 ### **ANSWER:** 
 
@@ -316,7 +319,7 @@ t.test( age ~ gender, data=m )
 
 Explanation: The p-value of the t-test less than **0.05**
 
-Therefore, Age at the time the non-profit was formed for males and females is different.
+Therefore, Age at the time the non-profit was formed for males and females are different.
 
 
 ## Question 7 
@@ -354,7 +357,7 @@ t.test( income ~ gender, data=m )
 
 Explanation: The p-value of the t-test less than **0.05**
 
-Therefore, income levels prior to starting the nonprofit between males and females is different.
+Therefore, income levels prior to starting the nonprofit between males and females are different.
 
 ## Question 8
 
