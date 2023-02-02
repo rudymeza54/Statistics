@@ -132,7 +132,7 @@ chisq.test( new_m )
 
 ### **ANSWER:** 
 
-Explanation: comparing Years of Professional Experience between  Males and Females Shows no relationship exist.
+Explanation: comparing Years of Professional Experience between  Males and Females Show no relationship exist.
 
 The Chi-Square Test Fails to reject the null hypothesis at **0.5482** that the two factors are indeed independent of each other. 
 
